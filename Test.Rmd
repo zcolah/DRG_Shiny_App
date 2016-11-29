@@ -1,4 +1,4 @@
-```{r}
+```{r, echo=FALSE, include=FALSE}
 library(dplyr)
 hospital.data <- read.csv("data/hospital_data.csv", stringsAsFactors = F)
 hospital.data.shortened <- hospital.data %>%
@@ -6,5 +6,8 @@ hospital.data.shortened <- hospital.data %>%
   group_by(Provider.State) %>% 
   summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges))))
 source("scripts/choropleth.r")
-makeChoropleth(hospital.data.shortened)
+stateChoropleth <- makeChoropleth(hospital.data.shortened)
 ```
+#State Choropleth Map  
+
+`r stateChoropleth`
