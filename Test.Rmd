@@ -2,11 +2,11 @@
 library(dplyr)
 hospital.data <- read.csv("data/hospital_data.csv", stringsAsFactors = F)
 hospital.data.shortened <- hospital.data %>%
-  select(Provider.City, Provider.State, Average.Covered.Charges) %>% 
+  select(Provider.City, Provider.State, Average.Covered.Charges, Average.Total.Payments) %>% 
   group_by(Provider.State) %>% 
-  summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges))))
+  summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges)) / as.numeric(gsub("\\$", "", Average.Total.Payments))))
 source("scripts/choropleth.r")
-stateChoropleth <- makeChoropleth(hospital.data.shortened)
+stateChoropleth <- makeCountryChoropleth(hospital.data.shortened)
 ```
 #State Choropleth Map  
 
