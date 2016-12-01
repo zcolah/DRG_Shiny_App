@@ -1,11 +1,6 @@
 library(plotly)
 library(dplyr)
-hospital.data <- read.csv("data/hospital_data.csv", stringsAsFactors = F)
-hospital.data.shortened <- hospital.data %>%
-  select(Provider.City, Provider.State, Average.Covered.Charges) %>% 
-  group_by(Provider.State) %>% 
-  summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges))))
-makeChoropleth <- function(data){
+makeCountryChoropleth <- function(data){
   g <- list(
     scope = 'usa',
     projection = list(type = 'albers usa'),
@@ -17,9 +12,9 @@ makeChoropleth <- function(data){
       z = ~State.Covered.Charges, text = ~State.Covered.Charges, locations = ~Provider.State,
       color = ~State.Covered.Charges, colors = 'Purples'
     ) %>%
-    colorbar(title = "Covered Charges") %>%
+    colorbar(title = "Average Covered Charges / Average Total Payments") %>%
     layout(
-      title = 'Average Covered Medical Charges by State<br>(Hover for breakdown)',
+      title = 'Ratio of Average Covered Medical Charges to Average Total Payments by State<br>(Hover for breakdown)',
       geo = g
     )
 }
