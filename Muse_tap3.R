@@ -11,38 +11,49 @@
 #output a list of hospitals in the state
 #numberic input, type the money that they want for the most amount of money that they can offer 
 
-#------------------------code---------------------------#
-#------------------------code---------------------------#
-#------------------------code---------------------------#
+
+#---------------------------question------------------------------#
+#---------------------------question------------------------------#
+#---------------------------question------------------------------#
+
+#input the city and the zip code, then match the similar zip cod
+#add a check box to chose whether you are a elder or not, 
+  #if you are a elder there will only have green in front and orange in the back
+
+
+#take the value in there will be a math function and find the closest function
+
+
+
+#---------------------------code------------------------------#
+#---------------------------code------------------------------#
+#---------------------------code------------------------------#
 
 
 library(plotly)
 library(stringr)
 library(dplyr)
 
-patient.data <- read.csv('patient_data.csv')
+patient.data <- read.csv('patient_data.csv', stringsAsFactors = F)
 
 #the city.name needs to have ''
-Build.bar.chart <- function(state.name, DRC.name){
+Build.bar.chart <- function(zipcode.number, DRC.name){
   
   #tap4.data will be used in this function. So that original data which is patient.data will not be changed
   tap3.data <- patient.data
   
-  #Bar chart needs number input, so we need to delete the $ sign which is in front of the number
-  #first, we make all the structures of the variables become number 
-  tap3.data$Average.Covered.Charges <- as.numeric(tap3.data$Average.Covered.Charges)
-  tap3.data$Average.Total.Payments <- as.numeric(tap3.data$Average.Total.Payments)
-  tap3.data$Average.Medicare.Payments <- as.numeric(tap3.data$Average.Medicare.Payments)
-  
-  #Second, we subsitude the $ sign by blank space 
-  gsub("\\$", "", tap3.data$Average.Covered.Charges)
-  gsub("\\$", "", tap3.data$Average.Total.Payments)
-  gsub("\\$", "", tap3.data$Average.Covered.Charges)
+  #we subsitude the $ sign by blank space in order to put the only number in the dataset
+  tap3.data$Average.Covered.Charges <- lapply(tap3.data$Average.Covered.Charges, 
+                                              function(x)as.numeric(gsub("[,$]","",x)))
+  tap3.data$Average.Total.Payments <- lapply(tap3.data$Average.Total.Payments, 
+                                              function(x)as.numeric(gsub("[,$]","",x)))
+  tap3.data$Average.Medicare.Payments <- lapply(tap3.data$Average.Medicare.Payments, 
+                                              function(x)as.numeric(gsub("[,$]","",x)))
   
   #select the information that we need
   hospital.data <- select(tap3.data,
                             DRG.Definition,
-                            Provider.State,
+                            Provider.Zip.Code,
                             Provider.Name,
                             Average.Covered.Charges, 
                             Average.Total.Payments, 
@@ -52,7 +63,7 @@ Build.bar.chart <- function(state.name, DRC.name){
                    filter(DRG.Definition == DRC.name)%>%
     
                    #select the infornation that is in the selected state
-                   filter(Provider.State == state.name)%>%
+                   filter(Provider.Zip.Code == zipcode.number)%>%
     
                    #Output the information that we need
                    select(Provider.Name,
@@ -80,11 +91,26 @@ Build.bar.chart <- function(state.name, DRC.name){
     add_trace(y = y3.ave.medicare.payments, name = 'Average.Medicare.Payments')%>%
     
     #lable yaxis, determine the display mode of the bar chart
-    layout(yaxis = list(title = 'Amount of Money'), barmode = 'stack')
+    layout(title = 'State Hospital Information',
+           yaxis = list(title = 'Amount of Money'),
+           xaxis = list(title = x.hospital.name),
+           x = c("Average.Covered.Charges", "Average.Total.Payments", "Average.Medicare.Payments"))
   
 return(bar.chart)}
 
 
 
+#-------------------------------test-----------------------------------#
+#-------------------------------test-----------------------------------#
+#-------------------------------test-----------------------------------#
+
+DRC.name <- c('039 - EXTRACRANIAL PROCEDURES W/O CC/MCC')
+zipcode.number <- 36301
 
 
+#---------------------------better code--------------------------------#
+#---------------------------better code--------------------------------#
+#---------------------------better code--------------------------------#
+
+
+#patient.data <- read.csv('patient_data.csv', stringsAsFactors = F)
