@@ -2,16 +2,16 @@
 # Create a choropleth map of the United States that compares the average covered charges to the average total payments
 library(dplyr)
 hospital.data <- read.csv("data/hospital_data.csv", stringsAsFactors = F)
-hospital.data.shortened <- hospital.data %>%
-  select(Provider.City, Provider.State, Average.Covered.Charges, Average.Total.Payments) %>% 
+hospital.data.state <- hospital.data %>%
+  select(Provider.State, Average.Covered.Charges, Average.Total.Payments) %>% 
   group_by(Provider.State) %>% 
   summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges)) / as.numeric(gsub("\\$", "", Average.Total.Payments))))
 source("scripts/choropleth.r")
-stateChoropleth <- makeCountryChoropleth(hospital.data.shortened)
+state.choropleth <- makeStateChoropleth(hospital.data.state)
 ```
 #State Choropleth Map: Best Insurance Coverage
 
-`r stateChoropleth`
+`r state.choropleth`
 
 ```{r, echo=FALSE, include=FALSE}
 # Create a choropleth map of each state that compares the average covered charges to the average total payments
@@ -24,8 +24,16 @@ source("scripts/getcounty.r")
 counties <- hospital.data.lat.lon[, 17:16] %>% 
   filter(!is.na(latitude), !is.na(longitude)) %>% 
   latlong2county()
-# Need to add latitude and longitude to county names
 hospital.data.county <- hospital.data.lat.lon %>%
   filter(!is.na(latitude), !is.na(longitude))
 hospital.data.county$county <- counties
+hospital.data.counties <- hospital.data.county %>%
+  select(Provider.City, county, Average.Covered.Charges, Average.Total.Payments) %>% 
+  filter(!is.na(county)) %>% 
+  group_by(county) %>% 
+  summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges)) / as.numeric(gsub("\\$", "", Average.Total.Payments))))
+county.choropleth <- makeCountyChoropleth(hospital.data.counties)
 ```
+# County Choropleth Map: Best Insurance Coverage
+
+`r county.choropleth`
