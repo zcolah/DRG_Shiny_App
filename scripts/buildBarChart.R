@@ -41,7 +41,7 @@ DrawBarplot <- function(data, state1, city1, zip1, hospital1, drg1, state2, city
             search2$Average.Total.Payments,
             search2$Average.Medicare.Payments)
   
-  p <- plotly(data, x = ~category,
+  p <- plot_ly(data, x = ~category,
                y = ~cost1,
                type = 'bar', name = 'Option A') %>% 
     add_trace(y = ~cost2, name = 'Option B') %>% 

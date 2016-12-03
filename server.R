@@ -1,6 +1,7 @@
 library(shiny)
+library(plotly)
 
-setwd("/Users/mac/Desktop/Project_Hospital_Information")
+#setwd("/Users/mac/Desktop/Project_Hospital_Information")
 
 source('./Data Wrangling.R')
 source('./scripts/buildBarChart.R')
@@ -21,7 +22,7 @@ shinyServer(function(input, output) {
     b.var4 <- input$var.b4
     b.var5 <- input$var.b5
     
-   return(DrawBarplot(data = DRG.location.payments, 
+   DrawBarplot(data = DRG.location.payments, 
                       state1 = a.var1, 
                       city1 = a.var2, 
                       zip1 = a.var3, 
@@ -31,6 +32,6 @@ shinyServer(function(input, output) {
                       city2 = b.var2,
                       zip2 = b.var3,
                       hospital2 = b.var4,
-                      drg2 = b.var5))
+                      drg2 = b.var5)
     })
 })
