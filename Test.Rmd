@@ -13,9 +13,10 @@ state.choropleth <- makeStateChoropleth(hospital.data.state)
 
 `r state.choropleth`
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE}
 # Create a choropleth map of each state that compares the average covered charges to the average total payments
 library(zipcode)
+library(choroplethr)
 data(zipcode)
 hospital.data.lat.lon <- hospital.data %>% 
   mutate(zip = paste(Provider.Zip.Code)) %>% 
@@ -26,14 +27,22 @@ counties <- hospital.data.lat.lon[, 17:16] %>%
   latlong2county()
 hospital.data.county <- hospital.data.lat.lon %>%
   filter(!is.na(latitude), !is.na(longitude))
+data(county.fips)
 hospital.data.county$county <- counties
 hospital.data.counties <- hospital.data.county %>%
-  select(Provider.City, county, Average.Covered.Charges, Average.Total.Payments) %>% 
-  filter(!is.na(county)) %>% 
+  select(Provider.City, county, Average.Covered.Charges, Average.Total.Payments) %>%  
   group_by(county) %>% 
-  summarize(State.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges)) / as.numeric(gsub("\\$", "", Average.Total.Payments))))
-county.choropleth <- makeCountyChoropleth(hospital.data.counties)
+  summarize(County.Covered.Charges = mean(as.numeric(gsub("\\$", "", Average.Covered.Charges)) / as.numeric(gsub("\\$", "", Average.Total.Payments)), na.rm = TRUE)) %>% 
+  mutate(polyname = county) %>% 
+  left_join(county.fips, by="polyname") %>% 
+  mutate(value = County.Covered.Charges, region = fips) %>% 
+  select(value, region)
+county_choropleth(hospital.data.counties,
+                 title      = "2012 Population Estimates",
+                 legend     = "Population",
+                 num_colors = 1
+                 )
 ```
 # County Choropleth Map: Best Insurance Coverage
 
-`r county.choropleth`
+
