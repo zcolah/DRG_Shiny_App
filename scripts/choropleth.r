@@ -10,7 +10,7 @@ makeStateChoropleth <- function(data){
   )
   plot_geo(data, locationmode = 'USA-states') %>%
     add_trace(
-      z = ~State.Covered.Charges, text = ~State.Covered.Charges, locations = ~Provider.State,
+      z = ~State.Covered.Charges, text = ~round(State.Covered.Charges, 2), locations = ~Provider.State,
       color = ~State.Covered.Charges, colors = 'Purples'
     ) %>%
     colorbar(title = "Average Covered Charges / Average Total Payments") %>%
@@ -18,8 +18,4 @@ makeStateChoropleth <- function(data){
       title = 'Ratio of Average Covered Medical Charges to Average Total Payments by State<br>(Hover for breakdown)',
       geo = g
     )
-}
-
-makeCountyChoropleth <- function(data, state){
-  
 }
