@@ -17,18 +17,18 @@
 #---------------------------question------------------------------#
 #---------------------------question------------------------------#
 
-#how to select a state then output the city that is in the state?
+#how to select a state then output the city that is in the state? renderUI? reactive?
 #add a check box to chose whether you are a elder or not, 
   #if you are a elder there will only have green in front and orange in the back
-#how to make the title font bigger
+#how to make the title font bigger?
 
 
 #-------------------------------test-----------------------------------#
 #-------------------------------test-----------------------------------#
 #-------------------------------test-----------------------------------#
 
-drc.name <- c('039 - EXTRACRANIAL PROCEDURES W/O CC/MCC')
-#city.name <- c('SEATTLE')
+drg.name <- c('039 - EXTRACRANIAL PROCEDURES W/O CC/MCC')
+city.name <- c('SEATTLE')
 state.name <- c('WA')
 
 #---------------------------code------------------------------#
@@ -42,9 +42,9 @@ library(dplyr)
 
 patient.data <- read.csv('patient_data.csv', stringsAsFactors = F)
 
-Build.bar.chart <- function(state.name, drg.name){
+Build.bar.chart <- function(state.name, city.name, drg.name){
   
-  #tab4.data will be used in this function. So that original data which is patient.data will not be changed
+  #tab3.data will be used in this function. So that original data which is patient.data will not be changed
   tab3.data <- patient.data
   
   #we subsitude the $ sign by blank space in order to put the only number in the dataset
@@ -59,16 +59,20 @@ Build.bar.chart <- function(state.name, drg.name){
   hospital.data <- select(tab3.data,
                             DRG.Definition,
                             Provider.State,
+                            Provider.City,
                             Provider.Name,
                             Average.Covered.Charges, 
                             Average.Total.Payments, 
                             Average.Medicare.Payments)%>%
     
-                   #select the information that is about the selected DRC
-                   filter(DRG.Definition == drc.name)%>%
+                   #select the information that is about the selected DRG
+                   filter(DRG.Definition == drg.name)%>%
     
-                   #select the infornation that is in the selected state
+                   #select the information that is in the selected state
                    filter(Provider.State == state.name)%>%
+                    
+                   #select the information that is in the selected city
+                   filter(Provider.City == city.name)%>%  
     
                    #Output the information that we need
                    select(Provider.Name,
@@ -103,9 +107,9 @@ Build.bar.chart <- function(state.name, drg.name){
   
 return(bar.chart)}
 
+
+#trying to use the Provider.City.vector pass in the server so that I do not need to manually put in all the city name
 Provider.City.dataframe <- as.data.frame(patient.data[,5], drop = FALSE)
 Provider.City.vector <- as.vector(Provider.City.dataframe)
 
 
-#use city.name = state.passin and input$state.select for test 19,17
-#it should be Provider.state 71,61
