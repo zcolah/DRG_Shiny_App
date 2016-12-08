@@ -1,9 +1,15 @@
+# Library necessary packages
 library(dplyr)
 library(leaflet)
 
+# This script will make a map that contains all the hospitals in the United States based on the input of DRG and the most someone is willing to pay
 makeHospitalMap <- function(data, drg, max.payment){
+  
+  # Filter the data so we just get the hospitals we want
   data <- data %>% 
     filter(DRG.Definition == drg, as.numeric(gsub("\\$", "", Average.Total.Payments)) < max.payment)
+  
+  # Set up the text that will show up when someone clicks on the marker on hte map
   popup.text <- paste(data$Provider.Name, 
                       data$Provider.City, 
                       paste("Average Covered Charges:", data$Average.Covered.Charges), 
@@ -11,6 +17,8 @@ makeHospitalMap <- function(data, drg, max.payment){
                       paste("Average Medicare Payments:", data$Average.Medicare.Payments), 
                       sep = "</br>"
                       )
+  
+  # This will return the map that has the markers for each hospital after it has been filtered
   return (leaflet() %>% 
             addTiles() %>% 
             setView(-96, 37, 4) %>% 

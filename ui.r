@@ -1,6 +1,8 @@
+# Library necessary packages
 library(shiny)
 library(leaflet)
 
+# Read in the drg names
 hospital.data.drg <- read.csv("data/hospital_data_drg.csv")
 
 shinyUI(fluidPage(
