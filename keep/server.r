@@ -9,6 +9,9 @@ source('./scripts/Reactive Functions.R')
 
 shinyServer(function(input, output) {
   
+    v1 <- input$var.a1
+    v2 <- input$var.b2
+    
   reactive({
     r.city1 <- cities(input$var.a1)
     r.zip1 <- zip.codes(input$var.a2)
@@ -24,12 +27,12 @@ shinyServer(function(input, output) {
   output$distPlot <- renderPlotly({
     
     return(DrawBarplot(data = DRG.location.payments, 
-                       state1 = input$var.a1, 
+                       state1 = v1, 
                        city1 = r.city1, 
                        zip1 = r.zip1, 
                        hospital1 = r.hos1, 
                        drg1 = r.drg1,
-                       state2 = input$var.b1,
+                       state2 = v2,
                        city2 = r.city2,
                        zip2 = r.zip2,
                        hospital2 = r.hos2,

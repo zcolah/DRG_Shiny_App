@@ -1,0 +1,72 @@
+library(shiny)
+
+setwd("/Users/mac/Desktop/Project_Hospital_Information")
+
+source('./scripts/Data Wrangling.R')
+source('./scripts/buildBarChart.R')
+source('./scripts/Reactive Functions.R')
+# Define server logic required to draw a histogram
+
+shinyServer(function(input, output) {
+  
+    v.region1 <- reactive({region(input$var.a1)})
+    v.city1 <- reactive({cities(input$var.a2)})
+    v.zip1 <- reactive({zip.codes(input$var.a3)})
+    v.drg1 <- reactive({drg(input$var.a4)})
+
+    v.region2 <- reactive({region(input$var.b1)})
+    v.city2 <- reactive({cities(input$var.b2)})
+    v.zip2 <- reactive({zip.codes(input$var.b3)})
+    v.drg2 <- reactive({drg(input$var.b4)})
+
+    
+  output$selectUIregionA <- renderUI({ 
+    selectInput("var.a2", "Hospital Referral Region A", choices = v.region1())
+  })
+  
+  output$selectUIcityA <- renderUI({ 
+    selectInput("var.a3", "City A", choices = v.city1())
+  })
+  
+  output$selectUIzipA <- renderUI({ 
+    selectInput("var.a4", "Zip Code A", choices = v.zip1())
+  })
+  
+  output$selectUIdrgA <- renderUI({ 
+    selectInput("var.a5", "Diagnosis-Related Group (DRG) A", choices = v.drg1())
+  })
+  
+  output$selectUIregionB <- renderUI({ 
+    selectInput("var.b2", "Hospital Referral Region B", choices = v.region2())
+  })
+  
+  output$selectUIcityB <- renderUI({ 
+    selectInput("var.b3", "City B", choices = v.city2())
+  })
+  
+  output$selectUIzipB <- renderUI({ 
+    selectInput("var.b4", "Zip Code B", choices = v.zip2())
+  })
+  
+  output$selectUIdrgB <- renderUI({ 
+    selectInput("var.b5", "Diagnosis-Related Group (DRG) B", choices = v.drg2())
+  })
+  
+  
+  output$distPlot <- renderPlotly({
+
+   return(DrawBarplot(data = DRG.location.payments, 
+                      state1 = input$var.a1,
+                      region1 = input$var.a2, 
+                      city1 = input$var.a3, 
+                      zip1 = input$var.a4,
+                      drg1 = input$var.a5,
+                      
+                      state2 = input$var.b1,
+                      region2 = input$var.b2, 
+                      city2 = input$var.b3,
+                      zip2 = input$var.b4,
+                      drg2 = input$var.b5))
+    })
+})
+
