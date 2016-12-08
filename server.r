@@ -3,8 +3,9 @@ library(dplyr)
 library(leaflet)
 library(maps)
 
-# This was just how I did my data manipulation. I am creating multiple dataframes so I don't have to do a ton of data
-# manipulation every time the data is loaded and I only keep the columns I need
+# This was just how I did my data manipulation to get state information. I am creating
+# multiple dataframes so I don't have to do a ton of data manipulation every time the
+# data is loaded and I only keep the columns I need
 
 #hospital.data <- read.csv("data/hospital_data.csv", stringsAsFactors = F)
 #hospital.data.state <- hospital.data %>%
