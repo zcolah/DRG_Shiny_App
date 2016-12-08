@@ -5,8 +5,10 @@ library (plotly)
 
 #Reading in Hospital Data 
 hospital.data <- read.csv("./data/hospital_data.csv",stringsAsFactors = FALSE)
+
 View (hospital.data)
 #Reading in Population Data
+
 population.data <- read.csv("./data/population_estimate_2011/PEP_2015_PEPANNRES_with_ann.csv",stringsAsFactors = FALSE)
 
 # state.abb[grep(df$Provider.State, state.name)] did not work hence had to use this code I sourced from online 
@@ -14,6 +16,7 @@ population.data <- read.csv("./data/population_estimate_2011/PEP_2015_PEPANNRES_
 #https://favorableoutcomes.wordpress.com/2012/10/19/create-an-r-function-to-convert-state-codes-to-full-state-name/
 
 #'x' is the column of a data.frame that holds 2 digit state codes
+
 stateFromLower <-function(x) {
   #read 52 state codes into local variable [includes DC (Washington D.C. and PR (Puerto Rico)]
   st.codes<-data.frame(
@@ -43,8 +46,12 @@ stateFromLower <-function(x) {
 }
 
 #Change the state abbreviations in hospital data to full state names
+
 hospital.data <- data.frame (hospital.data, stringsAsFactors = FALSE)
-hospital.data$Provider.State<-stateFromLower(hospital.data$Provider.State)
+
+#Creates a new column which contains the state names for each state ID
+hospital.data$Provider.State.Name<-stateFromLower(hospital.data$Provider.State)
+
 
 #Making a list of regions to not include in my dataframe
 regions<- c ( "Midwest Region", "Northeast Region",  "South Region" , "West Region" , "United States", "Puerto Rico", "Geography")
@@ -55,6 +62,7 @@ estimate.states.population.2011 <- select (population.data,GEO.display.label,res
                                    filter (!(GEO.display.label %in%  regions)) %>% 
                                    rename ( state.name = GEO.display.label, population.estimate.2011 = respop72011)
 
+#Converts state populations estimates from string into numeric 
 estimate.states.population.2011$population.estimate.2011 <- as.numeric(as.character(estimate.states.population.2011$population.estimate.2011))
 
 #Function to create a Choropleth map of the imapact of a DRG on a particular state
@@ -64,15 +72,14 @@ createChlorPlethPopulationMap <- function (drg.name) {
             #and add columns to show the impact of the DRG on the people of the state
             
             discharges.for.each.state.with.population <-  filter (hospital.data, DRG.Definition == drg.name) %>%  
-                                          select (DRG.Definition,Provider.State,Total.Discharges)  %>%
-                                          ungroup () %>% 
-                                          group_by(Provider.State,DRG.Definition) %>% 
-                                          summarise(Total.Discharges.For.State = sum (Total.Discharges)) %>% 
-                                          rename ( state.name = Provider.State ) %>% 
-                                          left_join(estimate.states.population.2011, by = "state.name") %>% 
-                                          mutate (impact.percentage.on.state = (Total.Discharges.For.State / population.estimate.2011)*100, 
-                                                  impact.on.hundred.thousand =  (Total.Discharges.For.State / population.estimate.2011)*100000) 
-
+                                                          select (DRG.Definition,Provider.State,Provider.State.Name,Total.Discharges)  %>%
+                                                          ungroup () %>% 
+                                                          group_by(Provider.State,Provider.State.Name,DRG.Definition) %>% 
+                                                          summarise(Total.Discharges.For.State = sum (Total.Discharges)) %>% 
+                                                          rename ( state.name = Provider.State.Name ) %>% 
+                                                          left_join(estimate.states.population.2011, by = "state.name") %>% 
+                                                          mutate (impact.percentage.on.state = (Total.Discharges.For.State / population.estimate.2011)*100, 
+                                                                  impact.on.hundred.thousand =  (Total.Discharges.For.State / population.estimate.2011)*100000) 
             
             #Creating a Choropleth Map
             
@@ -85,11 +92,30 @@ createChlorPlethPopulationMap <- function (drg.name) {
             #Give state boundries a white color border
             border.color <- list(color = toRGB("white"), width = 2)
             
-            #
+            #Specify some map projection/options
+            map.projections <- list(
+              scope = 'usa',
+              projection = list(type = 'albers usa'),
+              showlakes = TRUE,
+              lakecolor = toRGB('white')
+            )
+            
+            #Choropleth Map
+            
+            p <- plot_geo(discharges.for.each.state.with.population, locationmode = 'USA-states') %>%
+              add_trace(
+                z = ~Total.Discharges.For.State, text = ~hover, locations = ~Provider.State,
+                color = ~Total.Discharges.For.State, colors = 'Purples'
+              ) %>%
+              colorbar(title = "Impact Percentage") %>%
+              layout(
+                title = 'Impact Percentage of a DRG on a State<br>(Hover for breakdown)',
+                geo = map.projections
+              )
             
                             
-            return(discharges.for.each.state.with.population)
+            return(p)
 }
 
-View (createChlorPlethPopulationMap ("948 - SIGNS & SYMPTOMS W/O MCC"))
+createChlorPlethPopulationMap ("948 - SIGNS & SYMPTOMS W/O MCC")
 
