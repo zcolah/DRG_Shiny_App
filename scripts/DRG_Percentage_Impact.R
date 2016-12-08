@@ -64,9 +64,9 @@ createChlorPlethPopulationMap <- function (drg.name) {
             #and add columns to show the impact of the DRG on the people of the state
             
             discharges.for.each.state.with.population <-  filter (hospital.data, DRG.Definition == drg.name) %>%  
-                                          select (DRG.Definition,Provider.State,Total.Discharges)  %>%  
+                                          select (DRG.Definition,Provider.State,Total.Discharges)  %>%
+                                          ungroup () %>% 
                                           group_by(Provider.State,DRG.Definition) %>% 
-                                          ungroup() %>% 
                                           summarise(Total.Discharges.For.State = sum (Total.Discharges)) %>% 
                                           rename ( state.name = Provider.State ) %>% 
                                           left_join(estimate.states.population.2011, by = "state.name") %>% 
@@ -77,7 +77,7 @@ createChlorPlethPopulationMap <- function (drg.name) {
             #Creating a Choropleth Map
             
             #Hover Information 
-            discharges.for.each.state.with.population$hover <- with(paste(state.name,'<br>',"Total Discharges:",Total.Discharges.For.State,'<br>',
+            discharges.for.each.state.with.population$hover <- with(discharges.for.each.state.with.population,paste(state.name,'<br>',"Total Discharges:",Total.Discharges.For.State,'<br>',
                                                                           "Percentage of Population Impacted:", impact.percentage.on.state, "%",'<br>',
                                                                           "Approximate Population of State for 2011:", population.estimate.2011, '<br>',
                                                                           "Total Cases per Hundred Thousand:",impact.on.hundred.thousand))
@@ -91,5 +91,5 @@ createChlorPlethPopulationMap <- function (drg.name) {
             return(discharges.for.each.state.with.population)
 }
 
-View (createChlorPlethPopulationMap ("createChlorPlethPopulationMap"))
+View (createChlorPlethPopulationMap ("948 - SIGNS & SYMPTOMS W/O MCC"))
 
