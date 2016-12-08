@@ -60,18 +60,22 @@ tab3.data$Average.Medicare.Payments <- lapply(tab3.data$Average.Medicare.Payment
 tab3.data$payment.medicare.gap <- as.numeric(tab3.data$Average.Total.Payments) - as.numeric(tab3.data$Average.Medicare.Payments)
 
 
-Build.bar.chart <- function(region.name, drg.name){
+Build.bar.chart <- function(state.name, region.name, drg.name){
   
   #select the information that we need
   hospital.data <- select(tab3.data,
                             DRG.Definition,
                             Hospital.Referral.Region.Description,
                             Provider.Name,
+                            state.name,
                             Average.Covered.Charges, 
                             Average.Total.Payments, 
                             Average.Medicare.Payments,
                             payment.medicare.gap) %>%
                     
+                   #select the information that is in the selected region
+                   filter(Provider.State == state.name) %>%
+    
                    #select the information that is in the selected region
                    filter(Hospital.Referral.Region.Description == region.name) %>%  
     

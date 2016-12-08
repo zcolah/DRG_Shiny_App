@@ -65,14 +65,6 @@
 
 
 
-#---------------------------------------------#
-#---------------option2-----------------------#
-#http://www.ehrdocs.com/time/pdf/Top10DRGs.pdf#
-#---------------------------------------------#
-#---------------------------------------------#
-
-
-
 #------------------------structure---------------------------#
 #------------------------structure---------------------------#
 #------------------------structure---------------------------#
@@ -90,11 +82,6 @@
 #-------------------------------test-----------------------------------#
 
 drg.name <- c('190 - CHRONIC OBSTRUCTIVE PULMONARY DISEASE W MCC')
-
-#---------------------------question------------------------------#
-#---------------------------question------------------------------#
-#---------------------------question------------------------------#
-#How to make it colorful?
 
 #-----------------------------code---------------------------------#
 #-----------------------------code---------------------------------#
@@ -156,76 +143,10 @@ Build.scatter.plot <- function(drg.name){
   
 return(scatter.plot)}
 
-# set.seed(100)
-# d <- diamonds[sample(nrow(diamonds), 1000), ]
-# plot_ly(d, x = ~carat, y = ~price, color = ~carat,
-#         size = ~carat, text = ~paste("Clarity: ", clarity))
-# 
-# 
-# #-----------------------------bubble 1 begin---------------------------------#
-# p <- plot_ly(data, x = ~Women, y = ~Men, text = ~School, type = 'scatter', 
-#              mode = 'markers', size = ~gap, color = ~State, colors = 'Paired',
-#              marker = list(opacity = 0.5, sizemode = 'diameter')) %>%
-#   layout(title = 'Gender Gap in Earnings per University',
-#          xaxis = list(showgrid = FALSE),
-#          yaxis = list(showgrid = FALSE),
-#          showlegend = FALSE)
-# 
-# p <- plot_ly(hospital.data, x = ~Average.Total.Payments, y = ~Average.Medicare.Payments, 
-#              text = ~Provider.Name, 
-#              type = 'scatter', mode = 'markers', size = ~payment.medicare.gap,
-#              color = ~Provider.Name, colors = 'Paired',
-#              marker = list(opacity = 0.5, sizemode = 'diameter')) %>%
-#   layout(title = 'Hospital Information',
-#          xaxis = list(showgrid = FALSE),
-#          yaxis = list(showgrid = FALSE),
-#          showlegend = FALSE)                                                                                                                  
-# #-----------------------------bubble 1 end---------------------------------#
-# 
-# #-----------------------------bubble 2 begin---------------------------------#
-# 
-# data <- read.csv("https://raw.githubusercontent.com/plotly/datasets/master/school_earnings.csv")
-# 
-# data$State <- as.factor(c('Massachusetts', 'California', 'Massachusetts', 'Pennsylvania', 'New Jersey', 'Illinois', 'Washington DC',
-#                           'Massachusetts', 'Connecticut', 'New York', 'North Carolina', 'New Hampshire', 'New York', 'Indiana',
-#                           'New York', 'Michigan', 'Rhode Island', 'California', 'Georgia', 'California', 'California'))
-# 
-# p <- plot_ly(data, x = ~Women, y = ~Men, 
-#              text = ~School, type = 'scatter', mode = 'markers', 
-#              size = ~gap, color = ~State, colors = 'Paired',
-#              #Choosing the range of the bubbles' sizes:
-#              sizes = c(10, 50),
-#              marker = list(opacity = 0.5, sizemode = 'diameter')) %>%
-#   layout(title = 'Gender Gap in Earnings per University',
-#          xaxis = list(showgrid = FALSE),
-#          yaxis = list(showgrid = FALSE),
-#          showlegend = FALSE)
-# 
-# 
-# p <- plot_ly(tab7.data, x = ~Average.Total.Payments, y = ~Average.Medicare.Payments, 
-#              text = ~Provider.Name, type = 'scatter', mode = 'markers', 
-#              size = ~payment.medicare.gap, color = ~Provider.Name, colors = 'Paired',
-#              #Choosing the range of the bubbles' sizes:
-#              sizes = c(10, 50),
-#              marker = list(opacity = 0.5, sizemode = 'diameter')) %>%
-#   layout(title = 'Gender Gap in Earnings per University',
-#          xaxis = list(showgrid = FALSE),
-#          yaxis = list(showgrid = FALSE),
-#          showlegend = FALSE)
-# #--------------------------------#
+#-----------------------------discription---------------------------------#
+#-----------------------------discription---------------------------------#
+#-----------------------------discription---------------------------------#
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#The bigger the gap between total payment and medicare, the bigger the dots is, the more yellow the color is 
+#looking at the outliers, government will be able to know what hospital should be improve in specific DRG medicare
 
