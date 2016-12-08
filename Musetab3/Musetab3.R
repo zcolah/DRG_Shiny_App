@@ -3,12 +3,13 @@
 #------------------------structure---------------------------#
 
 
-#Select a state then select a region, and get information about the hospitals in the region for a particular DRG
+#select a region, and get information about the hospitals in the region for a particular DRG
 #Audience: Patient who has a DRG looks for a hospital which suits the best in the city or city which is nearby
 
 
-#select a DRG
+
 #select a region
+#select a DRG
 #output a list of hospitals in the region
 #numberic input, type the money that they want for the most amount of money that they can offer 
 
@@ -26,10 +27,10 @@
 #-------------------------------test-----------------------------------#
 #-------------------------------test-----------------------------------#
 
-drg.name <- c('064 - INTRACRANIAL HEMORRHAGE OR CEREBRAL INFARCTION W MCC')
+drg.name <- c('039 - EXTRACRANIAL PROCEDURES W/O CC/MCC')
 
 
-#region.name <- c('WA - Seattle')
+region.name <- c('AL - Dothan')
 #state.name <- c('WA')
 
 #---------------------------code------------------------------#
@@ -59,22 +60,17 @@ tab3.data$Average.Medicare.Payments <- lapply(tab3.data$Average.Medicare.Payment
 tab3.data$payment.medicare.gap <- as.numeric(tab3.data$Average.Total.Payments) - as.numeric(tab3.data$Average.Medicare.Payments)
 
 
-Build.bar.chart <- function(state.name, region.name, drg.name){
+Build.bar.chart <- function(region.name, drg.name){
   
   #select the information that we need
   hospital.data <- select(tab3.data,
                             DRG.Definition,
-                            Provider.State,
                             Hospital.Referral.Region.Description,
                             Provider.Name,
                             Average.Covered.Charges, 
                             Average.Total.Payments, 
                             Average.Medicare.Payments,
                             payment.medicare.gap) %>%
-    
-    
-                   #select the information that is in the selected state
-                   filter(Provider.State == state.name) %>%
                     
                    #select the information that is in the selected region
                    filter(Hospital.Referral.Region.Description == region.name) %>%  
