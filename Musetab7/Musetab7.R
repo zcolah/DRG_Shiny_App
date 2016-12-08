@@ -131,9 +131,7 @@ Build.scatter.plot <- function(drg.name){
                           y = ~Average.Medicare.Payments,
                           
                           #Hover text, show the total payment, medicare and the hospital name
-                          text = ~paste('Total Payment:', Average.Total.Payments,
-                                        'Medicare Coverage:', Average.Medicare.Payments,
-                                        'Hospital Name:', Provider.Name),
+                          text = ~paste('Hospital:', Provider.Name),
                           
                           #the color is going to change according to the amount of gap
                           color = ~payment.medicare.gap,

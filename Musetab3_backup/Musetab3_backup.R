@@ -110,7 +110,8 @@ Build.bar.chart <- function(region.name, drg.name){
     layout(title = 'Region Hospital Information',
            yaxis = list(title = 'Amount of Money'),
            xaxis = list(title = x.hospital.name),
-           barmode = 'group')
+           barmode = 'group',
+           margin = list(b = 300))
   
 return(bar.chart)}
 
