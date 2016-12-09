@@ -10,6 +10,8 @@ A Diagnosis Related Group is a statistical system of classifying any inpatient s
 
 The data set we used in our investigation is a collection containing a summary for each of the top 100 DRGs for over 3000 hospitals in the United States of America that receive Medicare Inpatient Prospective Payment System Payment paid under Medicare based on a rate per discharge using the Medicare Severity Diagnosis Related Group (MS-DRG) for Fiscal Year (FY) 2011. These DRGs represent more than 7 million discharges or 60 percent of total Medicare IPPS discharges. These summaries contain information about the total discharges, the average covered charges, the average total payments and the average Medicare payments made by the patients who have been discharged.
 
+The values that we focused on were the total discharges (which describes how many people were released from the hospital), average covered charges (which describes how much insurance will pay for the treatment), average total payments (which describes how much the patient pays for treatment), and average Medicare payments (which describes how much Medicare will pay for the treatment).
+
 ##Our Investigation
 As part of our investigation of this data we compare the average total payments and average Medicare payments for each DRG of each state and city and for each hospital to try to identify the areas where it is more costly to receive medical treatment. We also investigated the total discharges for a particular DRG and compare the total discharges for each DRG of each state so as to identify accordingly if a particular state suffers more than the other.
 
