@@ -1,6 +1,7 @@
 # Library necessary packages
 library(shiny)
 library(leaflet)
+library(plotly)
 
 # Read in the drg names
 hospital.data.drg <- read.csv("data/hospital_data_drg.csv")
@@ -21,12 +22,19 @@ shinyUI(fluidPage(
                   selected = "039 - EXTRACRANIAL PROCEDURES W/O CC/MCC"),
       
       # Numeric input for the most they want to pay
-      numericInput("max.payment",
-                   "Maximum Average Total Charges ($)",
-                   value = 20000,
-                   min = 0,
-                   max = 200000
-                  )
+#      numericInput("max.payment",
+#                   "Maximum Average Total Charges ($)",
+#                   value = 20000,
+#                   min = 0,
+#                   max = 200000
+#                  ),
+      
+      htmlOutput("numeric.range"),
+
+      radioButtons("coverage",
+                   "Coverage Options",
+                   choices = list(Medicare = "State.Medicare.Coverage.Percent", Insurance = "State.Covered.Charges.Percent"),
+                   selected = "State.Medicare.Coverage.Percent")
     ),
     
 
