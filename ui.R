@@ -18,18 +18,18 @@ shinyUI(navbarPage(inverse = F,
                    
                    fluid = T,
                   
-                  theme = shinytheme("darkly"), 
+                  theme = shinytheme("superhero"), 
                   
                   # name of navbarPage
-                  '2011 US Inpatient Prospective Payment',
+                  'DRG Analysis',
                    
                   # create a tabPanel
-                   tabPanel('Comparative Bar Chart',
+                   tabPanel('Compare Hospitals',
                             
                             # to render the title of the page
-                            #h1("Comparative", span("Bar Chart", style = "font-weight: 100"),
-                            #   style = "color: #bfefff; text-align: center;
-                            #   padding: 20px;"),
+                            h1("Comparative", span("Bar Chart", style = "font-weight: 100"),
+                               style = "color: #bfefff; text-align: center;
+                               padding: 20px;"),
                             
                             # to render the title of the sidebar panel
                             titlePanel("Make Your Choice"),
@@ -107,8 +107,9 @@ shinyUI(navbarPage(inverse = F,
                         furnished by the hospital during the stay."),
                       
                       p("Average Covered Charges: The provider's average charge for services 
-                        covered by Medicare for all discharges in the DRG. These will vary from 
-                        hospital to hospital because of differences in hospital charge structures."),
+                        covered by insurance for all discharges in the DRG. These will vary from 
+                        hospital to hospital because of differences in hospital charge structures
+                        and patient insurance plans."),
                       
                       p("Average Total Payments: The average total payments to all providers for 
                         the MS-DRG including the MS- DRG amount, teaching, disproportionate share, 

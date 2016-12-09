@@ -2,6 +2,9 @@
 
 library(dplyr)
 
+# Get the data for the DRG payments
+DRG.location.payments <- read.csv("data/DRG_location_payments.csv")
+
 # build a funciton that takes a state as an argument to locate and return all the corresponding
 # Hospital.Referral.Region.Description.
 Region <- function(state) {
@@ -28,11 +31,12 @@ Cities <- function(region) {
 
 # build a funciton that takes a city as an argument to locate and return all the corresponding
 # Provider.Names.
-Hospitals <- function(city) {
+Hospitals <- function(region, city) {
   hos.in.city <- DRG.location.payments %>% 
     ungroup() %>%
-    select(Provider.City, Provider.Name) %>% 
-    distinct(Provider.City, Provider.Name) %>% 
+    select(Hospital.Referral.Region.Description, Provider.City, Provider.Name) %>% 
+    distinct(Hospital.Referral.Region.Description, Provider.City, Provider.Name) %>% 
+    filter(Hospital.Referral.Region.Description == region) %>% 
     filter(Provider.City == city) %>% 
     select(Provider.Name)
   return(hos.in.city$Provider.Name)

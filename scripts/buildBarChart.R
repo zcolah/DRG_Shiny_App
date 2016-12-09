@@ -42,11 +42,14 @@ DrawBarplot <- function(data, state1, region1, city1, hos1, drg1, state2, region
             search2$Average.Total.Payments,
             search2$Average.Medicare.Payments)
   
+  # Add a title to the plot
+  title <- paste("Comparison of", hos1, "</br>and", hos2)
+  
   # render the plot with plotly. 
   p <- plot_ly(data, x = ~category,
                y = ~cost1,
                type = 'bar', name = ~hos1) %>% 
     add_trace(y = ~cost2, name = ~hos2) %>% 
-    layout(yaxis = list(title = 'Cost($)'), barmode = 'group')
+    layout(title = title, yaxis = list(title = 'Cost($)'), barmode = 'group', height = 800, margin = list(t = 100, b = 100))
   return(p)
 }

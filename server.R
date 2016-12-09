@@ -1,10 +1,13 @@
 # library necessary packages
 library(shiny)
 
-# source "DRG.location.payments" dataframe, buildBarChart function, 
+# source buildBarChart function, 
 # and all the reactive functions.
 source('scripts/buildBarChart.R')
 source('scripts/Reactive Functions.R')
+
+# Load data
+DRG.location.payments <- read.csv("data/DRG_location_payments.csv")
 
 # Define server logic required to render comparative bar chart.
 shinyServer(function(input, output) {
@@ -14,13 +17,13 @@ shinyServer(function(input, output) {
   # For the first option
     v.region1 <- reactive({Region(input$var.a1)})
     v.city1 <- reactive({Cities(input$var.a2)})
-    v.hos1 <- reactive({Hospitals(input$var.a3)})
+    v.hos1 <- reactive({Hospitals(input$var.a2, input$var.a3)})
     v.drg1 <- reactive({DRG(input$var.a4)})
     
   # For the second option
     v.region2 <- reactive({Region(input$var.b1)})
     v.city2 <- reactive({Cities(input$var.b2)})
-    v.hos2 <- reactive({Hospitals(input$var.b3)})
+    v.hos2 <- reactive({Hospitals(input$var.b2, input$var.b3)})
     v.drg2 <- reactive({DRG(input$var.b4)})
 
     # build reactive selectInputs and render them to outputs. 
