@@ -54,7 +54,7 @@ shinyUI(navbarPage(inverse = F,
                                 
                                 htmlOutput("selectUIcityA"),
                                 
-                                htmlOutput("selectUIzipA"),
+                                htmlOutput("selectUIhosA"),
                                 
                                 htmlOutput("selectUIdrgA"),
                               
@@ -68,7 +68,7 @@ shinyUI(navbarPage(inverse = F,
                                 
                                 htmlOutput("selectUIcityB"),
                                 
-                                htmlOutput("selectUIzipB"),
+                                htmlOutput("selectUIhosB"),
                                 
                                 htmlOutput("selectUIdrgB")),
                                 
@@ -86,7 +86,10 @@ shinyUI(navbarPage(inverse = F,
                       
                       plotlyOutput("distPlot"),
                       
-                      br(),
+                      hr(),
+                      
+                      # render the information in a data table
+                      tableOutput("hospital.locations.table"),
                       
                       hr(),
                       
@@ -96,7 +99,7 @@ shinyUI(navbarPage(inverse = F,
                       
                       p("Provider City: The city where the provider is located."),
                       
-                      p("Provider Zip Code: The provider’s zip code."),
+                      p("Provider Hospital: The hospital where the provider is located."),
                       
                       p("DRG Definition: The code and description identifying the MS-DRG. MS-DRGs are a classification 
                         system that groups similar clinical conditions (diagnoses) and the procedures 
