@@ -36,6 +36,7 @@ shinyUI(fluidPage(
       # Show a map of where the hospitals are that fit the DRG and the maximum payment
       leafletOutput("map"),
       
+      # Show a table of the data about the hospitals
       dataTableOutput("hospital.locations.table"),
       
       # Show a map of each state and the average ratio between average covered charges and average total payment
