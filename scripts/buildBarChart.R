@@ -5,12 +5,19 @@ library(stringr)
 library(dplyr)
 ### Build plot ###
 
+# source the DRG.location.payments data frame. 
 source("./scripts/Data Wrangling.R")
+
+# Build the "DrawBarplot" function that takes the dataframe and two groups of state, region, city,
+# zip, and drg as arguments(two search options) to filter down the corresponding charges. And 
+# eventually, use plotly function to render a comparative bar chart.
 
 DrawBarplot <- function(data, state1, region1, city1, zip1, drg1, state2, region2, city2, zip2, drg2) {
   
+  # set names for different categories on the horizontal axis.
   category <- c("Arg.Covered.Charges", "Arg.Total.Payments", "Arg.Medicare.Payments")
   
+  # filter down filter down the column for the first option.
   search1 <- data %>% 
     filter(Provider.State == state1) %>% 
     filter(Hospital.Referral.Region.Description == region1) %>% 
@@ -18,10 +25,13 @@ DrawBarplot <- function(data, state1, region1, city1, zip1, drg1, state2, region
     filter(Provider.Zip.Code == zip1) %>% 
     filter(DRG.Definition == drg1)
 
+  # find the corresponding Average.Covered.Charges, Average.Total.Payments, 
+  # and Average.Medicare.Payments of first option.
   cost1 <- c(search1$Average.Covered.Charges,
             search1$Average.Total.Payments,
             search1$Average.Medicare.Payments)
 
+  # filter down filter down the column for the first option.
   search2 <- data %>% 
     filter(Provider.State == state2) %>% 
     filter(Hospital.Referral.Region.Description == region2) %>% 
@@ -29,10 +39,13 @@ DrawBarplot <- function(data, state1, region1, city1, zip1, drg1, state2, region
     filter(Provider.Zip.Code == zip2) %>% 
     filter(DRG.Definition == drg2)
   
+  # find the corresponding Average.Covered.Charges, Average.Total.Payments, 
+  # and Average.Medicare.Payments of second option.
   cost2 <- c(search2$Average.Covered.Charges,
             search2$Average.Total.Payments,
             search2$Average.Medicare.Payments)
   
+  # render the plot with plotly. 
   p <- plot_ly(data, x = ~category,
                y = ~cost1,
                type = 'bar', name = 'Option A') %>% 
@@ -40,11 +53,3 @@ DrawBarplot <- function(data, state1, region1, city1, zip1, drg1, state2, region
     layout(yaxis = list(title = 'Cost($)'), barmode = 'group')
   return(p)
 }
-
-
-# DrawBarplot(data = DRG.location.payments,
-#   state1 = 'AK', city1 = 'ANCHORAGE',
-#   zip1 = '99508', hospital1 = 'AK - Anchorage',
-#   drg1 = '066 - INTRACRANIAL HEMORRHAGE OR CEREBRAL INFARCTION W/O CC/MCC',
-#   state2 = 'MD', city2 = 'ANNAPOLIS', zip2 = '21401', hospital2 = 'DC - Washington',
-#   drg2 = '303 - ATHEROSCLEROSIS W/O MCC')

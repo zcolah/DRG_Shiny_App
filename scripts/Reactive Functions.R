@@ -1,9 +1,12 @@
 # Reactive functions
 
 library(dplyr)
+
+# source "DRG.location.payments" data frame.
 source('./scripts/Data Wrangling.R')
 
-
+# build a funciton that takes a state as an argument to locate and return all the corresponding
+# Hospital.Referral.Region.Description.
 region <- function(state) {
   regions.in.state <- DRG.location.payments %>% 
     ungroup() %>% 
@@ -14,6 +17,8 @@ region <- function(state) {
   return(regions.in.state$Hospital.Referral.Region.Description)
 }
 
+# build a funciton that takes a region as an argument to locate and return all the corresponding
+# Provider Cities.
 cities <- function(region) {
   cities.in.region <- DRG.location.payments %>% 
     ungroup() %>% 
@@ -23,7 +28,9 @@ cities <- function(region) {
     select(Provider.City)
   return(cities.in.region$Provider.City)
 }
-  
+
+# build a funciton that takes a city as an argument to locate and return all the corresponding
+# Provider.Zip.Codes.
 zip.codes <- function(city) {
   zips.in.city <- DRG.location.payments %>% 
     ungroup() %>%
@@ -34,6 +41,8 @@ zip.codes <- function(city) {
   return(zips.in.city$Provider.Zip.Code)
 }
 
+# build a funciton that takes a zip as an argument to locate and return all the corresponding
+# DRG.Definitions.
 drg <- function(zip) {
   drgs.in.zip <- DRG.location.payments %>% 
     ungroup() %>% 

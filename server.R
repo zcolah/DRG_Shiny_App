@@ -1,35 +1,39 @@
 library(shiny)
 
-setwd("/Users/mac/Desktop/Project_Hospital_Information")
-
+# source "DRG.location.payments" dataframe, buildBarChart function, 
+# and all the reactive functions.
 source('./scripts/Data Wrangling.R')
 source('./scripts/buildBarChart.R')
 source('./scripts/Reactive Functions.R')
-# Define server logic required to draw a histogram
 
+# Define server logic required to render comparative bar chart.
 shinyServer(function(input, output) {
   
+  # use reactive functions to make the uses' input choice to decide the next selectInput scope.
+  
+  # For the first option
     v.region1 <- reactive({region(input$var.a1)})
     v.city1 <- reactive({cities(input$var.a2)})
     v.zip1 <- reactive({zip.codes(input$var.a3)})
     v.drg1 <- reactive({drg(input$var.a4)})
-
+    
+  # For the second option
     v.region2 <- reactive({region(input$var.b1)})
     v.city2 <- reactive({cities(input$var.b2)})
     v.zip2 <- reactive({zip.codes(input$var.b3)})
     v.drg2 <- reactive({drg(input$var.b4)})
 
-    
+    # build reactive selectInputs and render them to outputs. 
   output$selectUIregionA <- renderUI({ 
-    selectInput("var.a2", "Hospital Referral Region A", choices = v.region1())
+    selectInput("var.a2", "Provider Hospital Referral Region A", choices = v.region1())
   })
   
   output$selectUIcityA <- renderUI({ 
-    selectInput("var.a3", "City A", choices = v.city1())
+    selectInput("var.a3", "Provider City A", choices = v.city1())
   })
   
   output$selectUIzipA <- renderUI({ 
-    selectInput("var.a4", "Zip Code A", choices = v.zip1())
+    selectInput("var.a4", "Provider Zip Code A", choices = v.zip1())
   })
   
   output$selectUIdrgA <- renderUI({ 
@@ -37,22 +41,22 @@ shinyServer(function(input, output) {
   })
   
   output$selectUIregionB <- renderUI({ 
-    selectInput("var.b2", "Hospital Referral Region B", choices = v.region2())
+    selectInput("var.b2", "Provider Hospital Referral Region B", choices = v.region2())
   })
   
   output$selectUIcityB <- renderUI({ 
-    selectInput("var.b3", "City B", choices = v.city2())
+    selectInput("var.b3", "Provider City B", choices = v.city2())
   })
   
   output$selectUIzipB <- renderUI({ 
-    selectInput("var.b4", "Zip Code B", choices = v.zip2())
+    selectInput("var.b4", "Provider Zip Code B", choices = v.zip2())
   })
   
   output$selectUIdrgB <- renderUI({ 
     selectInput("var.b5", "Diagnosis-Related Group (DRG) B", choices = v.drg2())
   })
   
-  
+  # render the plot to the output and link all the variables from input by identifiers. 
   output$distPlot <- renderPlotly({
 
    return(DrawBarplot(data = DRG.location.payments, 
