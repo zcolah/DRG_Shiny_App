@@ -1,0 +1,11 @@
+name: 2011_us_inpatient_prospective_payment_comparative_bar_chart
+title: 2011 US Inpatient Prospective Payment Comparative Bar Chart
+account: jusintime
+server: shinyapps.io
+appId: 143485
+bundleId: 642037
+url: https://jusintime.shinyapps.io/2011_us_inpatient_prospective_payment_comparative_bar_chart/
+when: 1481281620.02013
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .Rapp.history|keep/server.r|keep/ui.r

@@ -1,10 +1,10 @@
-
+library(plotly)
 library(dplyr)
 library(shiny)
 library(shinythemes)
 
 # source "DRG.location.payments" dataframe.
-source("./scripts/Data Wrangling.R")
+DRG.location.payments <-read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
 
 # use dplyr functions to find all 51 states' names.
 states <- DRG.location.payments %>% 

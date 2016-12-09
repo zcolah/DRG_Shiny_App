@@ -30,3 +30,4 @@ DRG.location.payments <- original %>%
          Average.Medicare.Payments = mean(as.numeric(gsub("\\$", "", Average.Medicare.Payments))),
          Average.Total.Payments = mean(as.numeric(gsub("\\$", "", Average.Total.Payments))))
 
+write.csv(DRG.location.payments, "scripts/2011 DRG Location Payments.csv")

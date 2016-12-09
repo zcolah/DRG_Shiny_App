@@ -6,7 +6,7 @@ library(dplyr)
 ### Build plot ###
 
 # source the DRG.location.payments data frame. 
-source("./scripts/Data Wrangling.R")
+DRG.location.payments <- read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
 
 # Build the "DrawBarplot" function that takes the dataframe and two groups of state, region, city,
 # hospital, and drg as arguments(two search options) to filter down the corresponding charges. And 
@@ -23,7 +23,7 @@ DrawBarplot <- function(data, state1, region1, city1, hos1, drg1, state2, region
     filter(Hospital.Referral.Region.Description == region1) %>% 
     filter(Provider.City == city1) %>% 
     filter(Provider.Name == hos1) %>% 
-    filter(DRG.Definition == drg1)
+    filter(DRG.Definition == drg1) 
 
   # find the corresponding Average.Covered.Charges, Average.Total.Payments, 
   # and Average.Medicare.Payments of first option.
@@ -45,11 +45,18 @@ DrawBarplot <- function(data, state1, region1, city1, hos1, drg1, state2, region
             search2$Average.Total.Payments,
             search2$Average.Medicare.Payments)
   
+  # Add a title to the plot
+  title <- paste("Comparison of", hos1, "</br>and", hos2)
+  
   # render the plot with plotly. 
   p <- plot_ly(data, x = ~category,
                y = ~cost1,
                type = 'bar', name = ~hos1) %>% 
     add_trace(y = ~cost2, name = ~hos2) %>% 
-    layout(yaxis = list(title = 'Cost($)'), barmode = 'group')
+    layout(title = title, 
+           yaxis = list(title = 'Cost($)'), 
+           barmode = 'group', 
+           height = 800, 
+           margin = list(t = 100, b = 100))
   return(p)
 }

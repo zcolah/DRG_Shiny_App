@@ -1,8 +1,8 @@
 library(shiny)
-
+library(plotly)
 # source "DRG.location.payments" dataframe, buildBarChart function, 
 # and all the reactive functions.
-source('./scripts/Data Wrangling.R')
+DRG.location.payments <- read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
 source('./scripts/buildBarChart.R')
 source('./scripts/Reactive Functions.R')
 
@@ -13,15 +13,15 @@ shinyServer(function(input, output) {
   
   # For the first option
     v.region1 <- reactive({Region(input$var.a1)})
-    v.city1 <- reactive({Cities(input$var.a2)})
-    v.hos1 <- reactive({Hospitals(input$var.a3)})
-    v.drg1 <- reactive({DRG(input$var.a4)})
+    v.city1 <- reactive({Cities(input$var.a1, input$var.a2)})
+    v.hos1 <- reactive({Hospitals(input$var.a1, input$var.a2, input$var.a3)})
+    v.drg1 <- reactive({DRG(input$var.a1, input$var.a2, input$var.a3, input$var.a4)})
     
   # For the second option
     v.region2 <- reactive({Region(input$var.b1)})
-    v.city2 <- reactive({Cities(input$var.b2)})
-    v.hos2 <- reactive({Hospitals(input$var.b3)})
-    v.drg2 <- reactive({DRG(input$var.b4)})
+    v.city2 <- reactive({Cities(input$var.b1, input$var.b2)})
+    v.hos2 <- reactive({Hospitals(input$var.b1, input$var.b2, input$var.b3)})
+    v.drg2 <- reactive({DRG(input$var.b1, input$var.b2, input$var.b3, input$var.b4)})
 
     # build reactive selectInputs and render them to outputs. 
   output$selectUIregionA <- renderUI({ 

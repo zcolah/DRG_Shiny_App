@@ -3,7 +3,7 @@
 library(dplyr)
 
 # source "DRG.location.payments" data frame.
-source('./scripts/Data Wrangling.R')
+DRG.location.payments <- read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
 
 # build a funciton that takes a state as an argument to locate and return all the corresponding
 # Hospital.Referral.Region.Description.
@@ -19,23 +19,26 @@ Region <- function(state) {
 
 # build a funciton that takes a region as an argument to locate and return all the corresponding
 # Provider Cities.
-Cities <- function(region) {
+Cities <- function(state, region) {
   cities.in.region <- DRG.location.payments %>% 
     ungroup() %>% 
-    select(Hospital.Referral.Region.Description, Provider.City) %>% 
-    distinct(Hospital.Referral.Region.Description, Provider.City) %>% 
+    select(Provider.State, Hospital.Referral.Region.Description, Provider.City) %>% 
+    distinct(Provider.State, Hospital.Referral.Region.Description, Provider.City) %>%
+    filter(Provider.State == state) %>% 
     filter(Hospital.Referral.Region.Description == region) %>% 
     select(Provider.City)
   return(cities.in.region$Provider.City)
 }
 
-# build a funciton that takes a city as an argument to locate and return all the corresponding
+# build a funciton that takes region and city as arguments to locate and return all the corresponding
 # Provider.Names.
-Hospitals <- function(city) {
+Hospitals <- function(state, region, city) {
   hos.in.city <- DRG.location.payments %>% 
     ungroup() %>%
-    select(Provider.City, Provider.Name) %>% 
-    distinct(Provider.City, Provider.Name) %>% 
+    select(Provider.State, Hospital.Referral.Region.Description, Provider.City, Provider.Name) %>% 
+    distinct(Provider.State, Hospital.Referral.Region.Description, Provider.City, Provider.Name) %>% 
+    filter(Provider.State == state) %>% 
+    filter(Hospital.Referral.Region.Description == region) %>% 
     filter(Provider.City == city) %>% 
     select(Provider.Name)
   return(hos.in.city$Provider.Name)
@@ -43,11 +46,22 @@ Hospitals <- function(city) {
 
 # build a funciton that takes a provider hospital name as an argument to locate and return 
 # all the corresponding DRG.Definitions.
-DRG <- function(hos) {
+DRG <- function(state, region, city, hos) {
   drgs.in.zip <- DRG.location.payments %>% 
     ungroup() %>% 
-    select(Provider.Name, DRG.Definition) %>% 
-    distinct(Provider.Name, DRG.Definition) %>% 
+    select(Provider.State, 
+           Hospital.Referral.Region.Description,
+           Provider.City,
+           Provider.Name,
+           DRG.Definition) %>% 
+    distinct(Provider.State, 
+             Hospital.Referral.Region.Description,
+             Provider.City,
+             Provider.Name,
+             DRG.Definition) %>% 
+    filter(Provider.State == state) %>% 
+    filter(Hospital.Referral.Region.Description == region) %>% 
+    filter(Provider.City == city) %>%
     filter(Provider.Name == hos) %>% 
     select(DRG.Definition)
   return(drgs.in.zip$DRG.Definition)
@@ -86,6 +100,7 @@ BuildTable <- function(state1, region1, city1, hos1, drg1, state2, region2, city
            Average.Total.Payments, 
            Average.Medicare.Payments)
   
+  
   # create four vectors that save the results of the data frames from two options
   Provider.Name <- c(table1$Provider.Name, table2$Provider.Name)
     Avg.Covered.Charges <- c(table1$Average.Covered.Charges, table2$Average.Covered.Charges)
@@ -97,7 +112,10 @@ BuildTable <- function(state1, region1, city1, hos1, drg1, state2, region2, city
                       Avg.Covered.Charges, 
                       Avg.Total.Payments, 
                       Avg.Medicare.Payments) %>% 
-    mutate("Hospital Name" = Provider.Name, "Avg Covered Charges" = Avg.Covered.Charges, "Avg Total Payments" = Avg.Total.Payments, "Avg Medicare Payments" = Avg.Medicare.Payments) %>% 
+    mutate("Hospital Name" = Provider.Name, 
+           "Avg Covered Charges" = Avg.Covered.Charges, 
+           "Avg Total Payments" = Avg.Total.Payments,
+           "Avg Medicare Payments" = Avg.Medicare.Payments) %>% 
     select(-Provider.Name, -Avg.Covered.Charges, -Avg.Total.Payments, -Avg.Medicare.Payments)
   
   return(table)
