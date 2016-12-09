@@ -5,6 +5,7 @@ library(choroplethr)
 
 # This script will make a choropleth map of the United States that displays the average covered charges divided by the average total payments
 makeStateChoropleth <- function(data, type){
+  
   # This sets the graphics for the map
   g <- list(
     scope = 'usa',
@@ -13,6 +14,7 @@ makeStateChoropleth <- function(data, type){
     lakecolor = toRGB('white')
   )
   
+  # This is the text that will show up when the user hovers over the state
   text <- paste(data$Provider.State, 
                 paste0("Average Coverage ", round(data[, eval(quote(type))], 2), "%"),
                 sep = "</br>")
