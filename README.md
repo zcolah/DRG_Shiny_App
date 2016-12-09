@@ -4,6 +4,8 @@ Since we used a large dataset, the shiny server would crash when we tried to com
 
 A link to our shiny app can be found [here](https://zcolah.shinyapps.io/Project_Hospital_Information/).
 
+Also please note that our completed code is in the "Final Complete" branch so use that branch to read the code.
+
 ## About Our Dataset
 Our project works with the “Inpatient Prospective Payment System (IPPS) Provider Summary for the Top 100 Diagnosis-Related Groups (DRG) - FY2011” data set of information created and maintained by the US Government. 
 
