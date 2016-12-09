@@ -7,8 +7,8 @@ makeHospitalMap <- function(data, drg, payment){
   
   # Filter the data so we just get the hospitals we want
   data <- data %>% 
-    filter(DRG.Definition == drg, as.numeric(gsub("\\$", "", Average.Total.Payments)) <= payment[[2]] &
-             DRG.Definition == drg, as.numeric(gsub("\\$", "", Average.Total.Payments)) >= payment[[1]])
+    filter(DRG.Definition == drg, Average.Total.Payments <= payment[[2]] &
+             DRG.Definition == drg, Average.Total.Payments >= payment[[1]])
   
   # Set up the text that will show up when someone clicks on the marker on the map
   popup.text <- paste(data$Provider.Name, 

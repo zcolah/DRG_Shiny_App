@@ -12,6 +12,9 @@ hospital.data.state <- read.csv("data/hospital_data_state.csv")
 source("scripts/leaflet_map.r")
 source("scripts/choropleth.r")
 source("scripts/get_range.r")
+source("scripts/make_table.r")
+
+mtcars <- mtcars
 
 shinyServer(function(input, output) {
   
@@ -31,6 +34,10 @@ shinyServer(function(input, output) {
   output$map <- renderLeaflet(
     makeHospitalMap(hospital.data.for.leaflet, input$selected.drg.for.leaflet, input$payment)
   )
+  
+  output$hospital.locations.table <- renderDataTable({
+    makeTable(hospital.data.for.leaflet, input$selected.drg.for.leaflet, input$payment)
+  })
   
   # This is the choropleth map
   output$coverage.choropleth <- renderPlotly(
