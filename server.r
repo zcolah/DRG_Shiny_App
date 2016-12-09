@@ -10,13 +10,18 @@ library(dplyr)
 # Read in the two scripts that I will be using
 source("scripts/drg_chloropleth.r")
 source("scripts/drg_impact.r")
+source("scripts/drg_impact_table.r")
 
 hospital.data <- hospital.data <- read.csv("./data/hospital_data_with_state_name.csv",stringsAsFactors = FALSE)
 population.data <- read.csv("./data/population_estimate_for_2011.csv",stringsAsFactors = FALSE)
 
+
 shinyServer(function(input, output) {
   
   # This is the choropleth map
-  output$choropleth_drg_impact_percentage<- renderPlotly(DRG_Impact_Choropleth_Map(input$drg_option_for_impact,input$discharge_visualization_option,hospital.data,population.data))
+  output$choropleth_drg_impact_percentage <- renderPlotly(DRG_Impact_Choropleth_Map(input$drg_option_for_impact,input$discharge_visualization_option,hospital.data,population.data))
+  
+  # 
+  output$discharge_table <- renderDataTable({DRG_Impact_Table(input$drg_option_for_impact,hospital.data,population.data)})
   
 })

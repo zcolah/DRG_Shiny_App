@@ -18,9 +18,9 @@ DRG_Impact <- function (drg.name, column.to.display, drg.data, population.estima
             
             discharges.for.each.state.with.population <-  filter (drg.data, DRG.Definition == drg.name) %>%  
                                                           select (DRG.Definition,Provider.State,Provider.State.Name,Total.Discharges)  %>%
-                                                          ungroup () %>% 
                                                           group_by(Provider.State,Provider.State.Name,DRG.Definition) %>% 
                                                           summarise(Total.Discharges.For.State = sum (Total.Discharges)) %>% 
+                                                          ungroup () %>% 
                                                           rename ( state.name = Provider.State.Name ) %>% 
                                                           left_join(population.estimate, by = "state.name") %>% 
                                                           mutate (impact.percentage.on.state = round(((Total.Discharges.For.State / population.estimate.2011)*100),2), 

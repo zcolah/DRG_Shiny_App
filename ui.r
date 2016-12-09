@@ -30,13 +30,16 @@ shinyUI(fluidPage(
       # Select input for discharge visualization options
       selectInput("discharge_visualization_option",
                   "Discharge data set to visualize",
-                  choices = list("Total Discharges" = "Total.Discharges.For.State", "Approximate Percentage of Discharges for Population" = "impact.percentage.on.state", "Approximate State Population for 2011" = "population.estimate.2011", "Total Cases for every 100,000" = "impact.on.hundred.thousand"),
+                  choices = list("Total Discharges" = "Total.Discharges.For.State", "Approximate Percentage of Discharges for Population" = "impact.percentage.on.state", "Approximate State Population for 2011" = "population.estimate.2011", "Total Cases for every 100,000 people" = "impact.on.hundred.thousand"),
                   selected = "Total Discharges")),
       
     #Main Panel to show data visualization 
       mainPanel(
       # Show a map of each state and the average ratio between average covered charges and average total payment
-      plotlyOutput("choropleth_drg_impact_percentage")
+      plotlyOutput("choropleth_drg_impact_percentage"),
+      #Create discharge data table for drg selected
+      dataTableOutput("discharge_table")
+
     )
     
   )
