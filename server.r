@@ -14,8 +14,6 @@ source("scripts/choropleth.r")
 source("scripts/get_range.r")
 source("scripts/make_table.r")
 
-mtcars <- mtcars
-
 shinyServer(function(input, output) {
   
   # This will get the range that the slider bar has
@@ -35,6 +33,7 @@ shinyServer(function(input, output) {
     makeHospitalMap(hospital.data.for.leaflet, input$selected.drg.for.leaflet, input$payment)
   )
   
+  # This is the data table
   output$hospital.locations.table <- renderDataTable({
     makeTable(hospital.data.for.leaflet, input$selected.drg.for.leaflet, input$payment)
   })
