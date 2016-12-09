@@ -1,10 +1,10 @@
+# library necessary packages
 library(shiny)
 
 # source "DRG.location.payments" dataframe, buildBarChart function, 
 # and all the reactive functions.
-source('./scripts/Data Wrangling.R')
-source('./scripts/buildBarChart.R')
-source('./scripts/Reactive Functions.R')
+source('scripts/buildBarChart.R')
+source('scripts/Reactive Functions.R')
 
 # Define server logic required to render comparative bar chart.
 shinyServer(function(input, output) {

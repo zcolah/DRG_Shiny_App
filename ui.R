@@ -1,10 +1,11 @@
-
+# library necessary packages
 library(dplyr)
 library(shiny)
 library(shinythemes)
+library(plotly)
 
-# source "DRG.location.payments" dataframe.
-source("./scripts/Data Wrangling.R")
+# Get the data for the DRG payments
+DRG.location.payments <- read.csv("data/DRG_location_payments.csv")
 
 # use dplyr functions to find all 51 states' names.
 states <- DRG.location.payments %>% 
@@ -26,9 +27,9 @@ shinyUI(navbarPage(inverse = F,
                    tabPanel('Comparative Bar Chart',
                             
                             # to render the title of the page
-                            h1("Comparative", span("Bar Chart", style = "font-weight: 100"),
-                               style = "color: #bfefff; text-align: center;
-                               padding: 20px;"),
+                            #h1("Comparative", span("Bar Chart", style = "font-weight: 100"),
+                            #   style = "color: #bfefff; text-align: center;
+                            #   padding: 20px;"),
                             
                             # to render the title of the sidebar panel
                             titlePanel("Make Your Choice"),

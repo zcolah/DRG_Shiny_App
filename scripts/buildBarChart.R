@@ -5,9 +5,6 @@ library(stringr)
 library(dplyr)
 ### Build plot ###
 
-# source the DRG.location.payments data frame. 
-source("./scripts/Data Wrangling.R")
-
 # Build the "DrawBarplot" function that takes the dataframe and two groups of state, region, city,
 # hospital, and drg as arguments(two search options) to filter down the corresponding charges. And 
 # eventually, use plotly function to render a comparative bar chart.

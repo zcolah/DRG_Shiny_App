@@ -2,9 +2,6 @@
 
 library(dplyr)
 
-# source "DRG.location.payments" data frame.
-source('./scripts/Data Wrangling.R')
-
 # build a funciton that takes a state as an argument to locate and return all the corresponding
 # Hospital.Referral.Region.Description.
 Region <- function(state) {
