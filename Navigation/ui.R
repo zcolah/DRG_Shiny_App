@@ -4,6 +4,7 @@ library(plotly)
 library(stringr)
 library(dplyr)
 library(shiny)
+library(markdown)
 
 #tab3-Muse resource
 source('Musetab3_backup.R')
@@ -74,7 +75,19 @@ navbarPage("Lays' Project : DRG Analyis",
            #2. what is the purpose
            #3. who is the audience
            
-           tabPanel("About Team Lays"),
+           tabPanel("About Team Lays",
+                    fluidRow(
+                      column(3,
+                              img(class = 'img-lays',
+                                  src = paste0('http://www.perspectivebranding.com/images/uploads/portfolio/_960/Global_Lays_SINGLE.jpg')),
+                    tags$small(
+                      'Things you need to know:',
+                      "1. Picture source: you search Lays online and click the first picture",
+                      '2. We were eatting Lays chips when we tried to make a team.',
+                      "3. Do you wanna know how can we make such awesome website?",
+                      "You Google it!"
+                    )
+                    )),
            tabPanel('About the Project')
-           ))
-           
+)))
+                             
