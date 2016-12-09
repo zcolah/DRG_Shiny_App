@@ -30,11 +30,11 @@ source("scripts/get_range.r")
 
 shinyServer(function(input, output) {
   
-  dollar.range <- reactive({getRange(hospital.data.for.leaflet, input$drg)})
+  dollar.range <- reactive({getRange(hospital.data.for.leaflet, input$selected.drg)})
   
   output$numeric.range <- renderUI({ 
-    sliderInput("max.payment",
-                "Maximum Average Total Charges ($)",
+    sliderInput("payment",
+                "Range of Average Total Charges ($)",
                 value = dollar.range(),
                 min = dollar.range()[[1]],
                 max = dollar.range()[[2]])
@@ -42,11 +42,11 @@ shinyServer(function(input, output) {
   
   # This is the leaflet map
   output$map <- renderLeaflet(
-    makeHospitalMap(hospital.data.for.leaflet, input$drg, input$max.payment)
+    makeHospitalMap(hospital.data.for.leaflet, input$selected.drg, input$payment)
   )
   
   # This is the choropleth map
-  output$choropleth <- renderPlotly(
+  output$coverage.choropleth <- renderPlotly(
     makeStateChoropleth(hospital.data.state, input$coverage)
   )
 })

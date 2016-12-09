@@ -29,11 +29,11 @@ makeStateChoropleth <- function(data, type){
     ) %>%
     
     # This will make the colorbar on the right of the map
-    colorbar(title = "Percentage of<br>Average Covered Charges") %>%
+    colorbar(title = "Percentage of<br>Average Covered<br>Charges") %>%
     
     # This will make the title and use the graphics to make the map
     layout(
-      title = 'Ratio of Average Covered Medical Charges to Average Total Payments by State<br>(Hover for breakdown)',
+      title = 'Average Percentage of Coverage by State<br>(Hover for breakdown)',
       geo = g,
       hovermode = "closest"
     )

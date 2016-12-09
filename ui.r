@@ -16,7 +16,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       
       # Select input for the DRGs
-      selectInput("drg",
+      selectInput("selected.drg",
                   "Select DRG",
                   hospital.data.drg$DRG.Definition,
                   selected = "039 - EXTRACRANIAL PROCEDURES W/O CC/MCC"),
@@ -43,7 +43,7 @@ shinyUI(fluidPage(
       leafletOutput("map"),
       
       # Show a map of each state and the average ratio between average covered charges and average total payment
-      plotlyOutput("choropleth")
+      plotlyOutput("coverage.choropleth")
     )
   )
 ))
