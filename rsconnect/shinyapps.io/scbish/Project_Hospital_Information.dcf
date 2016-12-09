@@ -3,9 +3,9 @@ title: Project_Hospital_Information
 account: scbish
 server: shinyapps.io
 appId: 143128
-bundleId: 640279
+bundleId: 641521
 url: https://scbish.shinyapps.io/Project_Hospital_Information/
-when: 1481167872.27779
+when: 1481245641.95847
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: Project Description.docx|README.md|Test.html|Test.Rmd
+ignoredFiles: Project Description.docx|README.md|Test.html|Test.Rmd|data/hospital_data_county.csv|data/hospital_data_state_abb.csv|scripts/getcounty.r|scripts/getLatLon.r

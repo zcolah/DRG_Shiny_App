@@ -21,14 +21,6 @@ shinyUI(fluidPage(
                   hospital.data.drg$DRG.Definition,
                   selected = "039 - EXTRACRANIAL PROCEDURES W/O CC/MCC"),
       
-      # Numeric input for the most they want to pay
-#      numericInput("max.payment",
-#                   "Maximum Average Total Charges ($)",
-#                   value = 20000,
-#                   min = 0,
-#                   max = 200000
-#                  ),
-      
       # This puts the slider bar that will adjust based on the selected drg
       htmlOutput("numeric.range"),
 
@@ -39,7 +31,6 @@ shinyUI(fluidPage(
                    selected = "State.Medicare.Coverage.Percent")
     ),
     
-
     mainPanel(
       # Show a map of where the hospitals are that fit the DRG and the maximum payment
       leafletOutput("map"),
