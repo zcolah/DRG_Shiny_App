@@ -1,0 +1,11 @@
+name: Project_Hospital_Information
+title: Project_Hospital_Information
+account: zcolah
+server: shinyapps.io
+appId: 143405
+bundleId: 641664
+url: https://zcolah.shinyapps.io/Project_Hospital_Information/
+when: 1481258067.43302
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Project Description.docx|README.md|Test.html|Test.Rmd|data/.DS_Store|data/hospital_data_county.csv|data/hospital_data_for_leaflet.csv|data/hospital_data_lat_lon.csv|data/hospital_data_state_abb.csv|data/hospital_data_state.csv|data/population_estimate_2011/aff_download_readme_ann.txt|data/population_estimate_2011/PEP_2015_PEPANNRES_metadata.csv|data/population_estimate_2011/PEP_2015_PEPANNRES_with_ann.csv|data/population_estimate_2011/PEP_2015_PEPANNRES.txt|scripts/choropleth.r|scripts/getcounty.r|scripts/getLatLon.r|scripts/leaflet_map.r
