@@ -91,7 +91,7 @@ createChlorPlethPopulationMap <- function (drg.name) {
 
             #Give state boundries a white color border
             border.color <- list(color = toRGB("white"), width = 2)
-            
+          
             #Specify some map projection/options
             map.projections <- list(
               scope = 'usa',
@@ -102,19 +102,18 @@ createChlorPlethPopulationMap <- function (drg.name) {
             
             #Choropleth Map
             
-            p <- plot_geo(discharges.for.each.state.with.population, locationmode = 'USA-states') %>%
-              add_trace(
-                z = ~Total.Discharges.For.State, text = ~hover, locations = ~Provider.State,
-                color = ~Total.Discharges.For.State, colors = 'Purples'
-              ) %>%
-              colorbar(title = "Impact Percentage") %>%
-              layout(
-                title = 'Impact Percentage of a DRG on a State<br>(Hover for breakdown)',
-                geo = map.projections
-              )
-            
-                            
-            return(p)
+            choropleth.map <- plot_geo(discharges.for.each.state.with.population, locationmode = 'USA-states', colorscale = ‘Viridis’ ) %>%
+                              add_trace(
+                                z = ~impact.percentage.on.state, text = ~hover, hoverinfo ="text", locations = ~Provider.State,
+                                color = ~impact.percentage.on.state, colors = 'Reds'
+                              ) %>%
+                              colorbar(title = "Impact Percentage") %>%
+                              layout(
+                                title = '<b style="color:CF000F">Impact Percentage of a DRG on a State</b><br>Hover to learn more',
+                                geo = map.projections
+                              )
+
+            return(choropleth.map)
 }
 
 createChlorPlethPopulationMap ("948 - SIGNS & SYMPTOMS W/O MCC")
