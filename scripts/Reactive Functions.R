@@ -2,8 +2,11 @@
 
 library(dplyr)
 
+
 # source "DRG.location.payments" data frame.
 DRG.location.payments <- read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
+
+# Get the data for the DRG payments
 
 # build a funciton that takes a state as an argument to locate and return all the corresponding
 # Hospital.Referral.Region.Description.

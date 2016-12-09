@@ -1,8 +1,9 @@
+# library necessary packages
 library(dplyr)
 
 # read inpatient prospective payments data frame as csv form and save it to a variable called 
 # original
-original <- read.csv("./inpatient_Prospective_Payment.csv", stringsAsFactors = F)
+original <- read.csv("scripts/inpatient_Prospective_Payment.csv", stringsAsFactors = F)
 
 # create a new data frame with only DRG.Definition, Provider.State, Provider.City, 
 # Provider.Name, Hospital.Referral.Region.Description, Average.Covered.Charges,

@@ -58,5 +58,6 @@ DrawBarplot <- function(data, state1, region1, city1, hos1, drg1, state2, region
            barmode = 'group', 
            height = 800, 
            margin = list(t = 100, b = 100))
+
   return(p)
 }

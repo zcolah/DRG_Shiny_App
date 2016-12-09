@@ -1,10 +1,14 @@
-library(plotly)
+
+# library necessary packages
 library(dplyr)
 library(shiny)
 library(shinythemes)
+library(plotly)
 
-# source "DRG.location.payments" dataframe.
+# Get the data for the DRG payments
+
 DRG.location.payments <-read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
+
 
 # use dplyr functions to find all 51 states' names.
 states <- DRG.location.payments %>% 
@@ -17,13 +21,13 @@ shinyUI(navbarPage(inverse = F,
                    
                    fluid = T,
                   
-                  theme = shinytheme("darkly"), 
+                  theme = shinytheme("superhero"), 
                   
                   # name of navbarPage
-                  '2011 US Inpatient Prospective Payment',
+                  'DRG Analysis',
                    
                   # create a tabPanel
-                   tabPanel('Comparative Bar Chart',
+                   tabPanel('Compare Hospitals',
                             
                             # to render the title of the page
                             h1("Comparative", span("Bar Chart", style = "font-weight: 100"),
@@ -106,8 +110,9 @@ shinyUI(navbarPage(inverse = F,
                         furnished by the hospital during the stay."),
                       
                       p("Average Covered Charges: The provider's average charge for services 
-                        covered by Medicare for all discharges in the DRG. These will vary from 
-                        hospital to hospital because of differences in hospital charge structures."),
+                        covered by insurance for all discharges in the DRG. These will vary from 
+                        hospital to hospital because of differences in hospital charge structures
+                        and patient insurance plans."),
                       
                       p("Average Total Payments: The average total payments to all providers for 
                         the MS-DRG including the MS- DRG amount, teaching, disproportionate share, 

@@ -1,10 +1,16 @@
+# library necessary packages
 library(shiny)
 library(plotly)
-# source "DRG.location.payments" dataframe, buildBarChart function, 
-# and all the reactive functions.
+
+
 DRG.location.payments <- read.csv('scripts/2011 DRG Location Payments.csv', stringsAsFactors = F)
-source('./scripts/buildBarChart.R')
-source('./scripts/Reactive Functions.R')
+
+# source buildBarChart function, 
+# and all the reactive functions.
+source('scripts/buildBarChart.R')
+source('scripts/Reactive Functions.R')
+
+
 
 # Define server logic required to render comparative bar chart.
 shinyServer(function(input, output) {
