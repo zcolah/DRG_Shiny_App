@@ -31,6 +31,7 @@ shinyUI(fluidPage(
                    selected = "State.Medicare.Coverage.Percent")
     ),
     
+    # The main panel will display the map
     mainPanel(
       # Show a map of where the hospitals are that fit the DRG and the maximum payment
       leafletOutput("map"),
