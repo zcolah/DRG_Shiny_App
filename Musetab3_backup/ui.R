@@ -25,7 +25,8 @@ shinyUI(fluidPage(
 
     ),
     mainPanel(
-      plotlyOutput('bar.chart.city.info')
+      plotlyOutput('bar.chart.city.info'),
+      dataTableOutput('data.table')
     )
   ))
 )
