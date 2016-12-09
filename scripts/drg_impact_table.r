@@ -20,10 +20,11 @@ DRG_Impact_Table <- function (drg.name, drg.data, population.estimate) {
                                                         select (DRG.Definition,Provider.State,Provider.State.Name,Total.Discharges)  %>%
                                                         group_by(Provider.State,Provider.State.Name,DRG.Definition) %>% 
                                                         summarise(Total.Discharges.For.State = sum (Total.Discharges)) %>% 
-                                                        rename (state.name = Provider.State.Name) %>% 
+                                                        ungroup () %>% 
+                                                        rename ( state.name = Provider.State.Name ) %>% 
                                                         left_join(population.estimate, by = "state.name") %>% 
                                                         mutate (impact.percentage.on.state = round(((Total.Discharges.For.State / population.estimate.2011)*100),2), 
-                                                                impact.on.hundred.thousand =  (Total.Discharges.For.State / population.estimate.2011)*100000)
+                                                                impact.on.hundred.thousand =  (Total.Discharges.For.State / population.estimate.2011)*100000) %>% 
                                                         select (-Provider.State, -X) %>% 
                                                         rename (State = state.name , "DRG Definition" = DRG.Definition, "Total Discharges" = Total.Discharges.For.State ,
                                                                 "Population Estimate (2011)" = population.estimate.2011, "Percentage of Population discharged" = impact.percentage.on.state, "Number of Discharges in Every 100,000 people" =impact.on.hundred.thousand )
@@ -32,7 +33,6 @@ DRG_Impact_Table <- function (drg.name, drg.data, population.estimate) {
   return (discharges.for.each.state.with.population)
   
 }
-
 hospital.data <- hospital.data <- read.csv("./data/hospital_data_with_state_name.csv",stringsAsFactors = FALSE)
 population.data <- read.csv("./data/population_estimate_for_2011.csv",stringsAsFactors = FALSE)
 DRG_Impact_Table ("039 - EXTRACRANIAL PROCEDURES W/O CC/MCC",hospital.data,population.data)
