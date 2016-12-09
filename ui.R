@@ -20,12 +20,11 @@ source('./scripts/find_gap_between_total_payments_and_medicare.R')
 source('./scripts/support_functions_finding_gap_between_total_payments_and_medicare.R')
 
 #
-
 navbarPage("Lays' Project : DRG Analyis", 
            
            
            # Make a title for the application
-           tabPanel('Insurance/Medicare Rate',
+           tabPanel("Hospital Locations Map",
                     
                     # Create a sidebar with widgets that will modify the map
                     sidebarLayout(
@@ -54,7 +53,7 @@ navbarPage("Lays' Project : DRG Analyis",
                     ))
            ),
 
-           tabPanel("Hospital Locations Map",
+           tabPanel('Insurance/Medicare Rate',
                     # Create a sidebar with widgets that will modify the map
                     sidebarLayout(
                       sidebarPanel(
@@ -64,8 +63,7 @@ navbarPage("Lays' Project : DRG Analyis",
                                  choices = list(Medicare = "State.Medicare.Coverage.Percent", Insurance = "State.Covered.Charges.Percent"),
                                  selected = "State.Medicare.Coverage.Percent")
                       ),
-                    # The main panel will display the map
-                    mainPanel(
+                      mainPanel(
                       # Show a map of each state and the average ratio between average covered charges and average total payment
                       plotlyOutput("coverage.choropleth")
                     )
@@ -128,7 +126,7 @@ navbarPage("Lays' Project : DRG Analyis",
                       "3. Do you wanna know how can we make such awesome website?",
                       "You Google it!"
                     )
-                    )),
+                    ))),
            tabPanel('About the Project')
-)))
+))
                              

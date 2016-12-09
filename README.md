@@ -1,5 +1,5 @@
 # Hospital Information
-A link to the shiny app can be found [here](https://scbish.shinyapps.io/Project_Hospital_Information/).
+A link to the shiny app can be found [here](https://zcolah.shinyapps.io/Project_Hospital_Information/).
 
 Since we used a large dataset, many features will take a few seconds to load.
 
