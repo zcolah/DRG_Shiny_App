@@ -2,7 +2,7 @@
 library(dplyr)
 
 # This function will get a range for the slider bar
-getRange <- function(data, drg){
+GetRange <- function(data, drg){
   data <- data %>% 
     filter(DRG.Definition == drg) %>% 
     filter(Average.Total.Payments == min(Average.Total.Payments) | Average.Total.Payments == max(Average.Total.Payments)) %>% 

@@ -3,7 +3,7 @@ library(dplyr)
 library(leaflet)
 
 # This script will make a map that contains all the hospitals in the United States based on the input of DRG and the most someone is willing to pay
-makeHospitalMap <- function(data, drg, payment){
+MakeHospitalMap <- function(data, drg, payment){
   
   # Filter the data so we just get the hospitals we want
   data <- data %>% 

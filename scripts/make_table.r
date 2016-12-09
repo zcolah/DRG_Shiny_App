@@ -1,6 +1,6 @@
 library(dplyr)
 
-makeTable <- function(data, drg, payment){
+MakeTable <- function(data, drg, payment){
   
   # Filter the data so we just get the hospitals we want
   data <- data %>% 

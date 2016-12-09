@@ -4,7 +4,7 @@ library(dplyr)
 library(choroplethr)
 
 # This script will make a choropleth map of the United States that displays the average covered charges divided by the average total payments
-makeStateChoropleth <- function(data, type){
+MakeStateChoropleth <- function(data, type){
   
   # This sets the graphics for the map
   g <- list(
