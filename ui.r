@@ -29,8 +29,10 @@ shinyUI(fluidPage(
 #                   max = 200000
 #                  ),
       
+      # This puts the slider bar that will adjust based on the selected drg
       htmlOutput("numeric.range"),
 
+      # These buttons will adjust the choropleth map
       radioButtons("coverage",
                    "Coverage Options",
                    choices = list(Medicare = "State.Medicare.Coverage.Percent", Insurance = "State.Covered.Charges.Percent"),

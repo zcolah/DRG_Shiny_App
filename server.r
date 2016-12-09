@@ -30,8 +30,10 @@ source("scripts/get_range.r")
 
 shinyServer(function(input, output) {
   
+  # This will get the range that the slider bar has
   dollar.range <- reactive({getRange(hospital.data.for.leaflet, input$selected.drg)})
   
+  # This will render the slider bar on the ui
   output$numeric.range <- renderUI({ 
     sliderInput("payment",
                 "Range of Average Total Charges ($)",
