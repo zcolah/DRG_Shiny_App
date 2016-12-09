@@ -17,6 +17,14 @@ MakeStateChoropleth <- function(data, type){
   text <- paste(data$Provider.State, 
                 paste0("Average Coverage ", round(data[, eval(quote(type))], 2), "%"),
                 sep = "</br>")
+  #Margin
+  m <- list(
+    l = 50,
+    r = 50,
+    b = 100,
+    t = 100,
+    pad = 4
+  )
   
   # This is what puts in the data for the choropleth map
   plot_geo(data, locationmode = 'USA-states') %>%
@@ -37,5 +45,7 @@ MakeStateChoropleth <- function(data, type){
       title = 'Average Percentage of Coverage by State<br>(Hover for breakdown)',
       geo = g,
       hovermode = "closest"
-    )
+    ) %>% 
+    layout(autosize = T, width = 700, height = 600, margin = m)
+  
 }

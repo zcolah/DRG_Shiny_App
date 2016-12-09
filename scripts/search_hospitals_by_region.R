@@ -58,24 +58,31 @@ Build.bar.chart <- function(region.name, drg.name){
   y3.ave.medicare.payments <- as.numeric(hospital.data$Average.Medicare.Payments)
   y4.ave.payment.medicare.gap <- hospital.data$payment.medicare.gap
   
-  bar.chart <- plot_ly(x = ~x.hospital.name, y = ~y1.ave.covered.charges,
+  #Margin
+  m <- list(
+    pad = 2
+  )
+  
+bar.chart <- plot_ly(x = ~x.hospital.name, y = ~y1.ave.covered.charges,
                        type = "bar", name = 'Average.Covered.Charges')%>%
     
-    #add Average.Total.Payments information
-    add_trace(y = ~y2.ave.total.payments, name = 'Average.Total.Payments')%>%
-    
-    #add Average.Medicare.Payments information 
-    add_trace(y = ~y3.ave.medicare.payments, name = 'Average.Medicare.Payments')%>%
-    
-    add_trace(y = ~y4.ave.payment.medicare.gap, name = 'Average.Payment.Medicare.Gap') %>%
-    
-    #lable yaxis, determine the display mode of the bar chart
-    layout(title = 'Region Hospital Information',
-           yaxis = list(title = 'Amount of Money'),
-           xaxis = list(title = x.hospital.name),
-           barmode = 'group',
-           margin = list(b = 300))
+                      #add Average.Total.Payments information
+                      add_trace(y = ~y2.ave.total.payments, name = 'Average.Total.Payments')%>%
+                      
+                      #add Average.Medicare.Payments information 
+                      add_trace(y = ~y3.ave.medicare.payments, name = 'Average.Medicare.Payments')%>%
+                      
+                      add_trace(y = ~y4.ave.payment.medicare.gap, name = 'Average.Payment.Medicare.Gap') %>%
+                      
+                      #lable yaxis, determine the display mode of the bar chart
+                      layout(title = 'Region Hospital Information',
+                      yaxis = list(title = 'Amount of Money'),
+                      xaxis = list(title = ~x.hospital.name),
+                      barmode = 'group',
+                      margin = list(b = 180)) %>% 
+                      layout(margin = m)
   
+
 return(bar.chart)}
 
 #------------------------description---------------------------#

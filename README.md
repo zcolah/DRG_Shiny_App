@@ -3,6 +3,8 @@ A link to the shiny app can be found [here](https://zcolah.shinyapps.io/Project_
 
 Since we used a large dataset, many features will take a few seconds to load.
 
+Please note our comparative analysis of two hospitals website has been made separately and linked to in our main website. This is because of the extremely long load time (approx 5 minutes) it takes which causes other parts of our website a long time to load. Here is a [link](https://jusintime.shinyapps.io/2011_us_inpatient_prospective_payment_comparative_bar_chart/) to it. 
+
 ## About Our Dataset
 Our project works with the “Inpatient Prospective Payment System (IPPS) Provider Summary for the Top 100 Diagnosis-Related Groups (DRG) - FY2011” data set of information created and maintained by the US Government. 
 

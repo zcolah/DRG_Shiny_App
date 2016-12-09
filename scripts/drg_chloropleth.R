@@ -70,7 +70,6 @@ DRG_Impact_Choropleth_Map <- function (drg.name, column.to.display, drg.data, po
   #Pasting HTML Into Title
   map.title.y <- paste0 ('<b style="color:CF000F">', map.title,"</b><br>", "Hover to learn more")
   
-  
   #Choropleth Map
   
   choropleth.map <- plot_geo(discharges.for.each.state.with.population, locationmode = 'USA-states') %>%
@@ -78,7 +77,7 @@ DRG_Impact_Choropleth_Map <- function (drg.name, column.to.display, drg.data, po
               color = ~eval(parse(text = column.to.display)), colors = 'Reds') %>%
     colorbar(title = color.legend.title) %>%
     layout(title = map.title.y,
-           geo = map.projections , hovermode="closest")
+           geo = map.projections , hovermode="closest") 
   
   #Return a Choropleth Map
   return (choropleth.map)
