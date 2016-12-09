@@ -16,7 +16,7 @@ source("scripts/get_range.r")
 shinyServer(function(input, output) {
   
   # This will get the range that the slider bar has
-  dollar.range <- reactive({getRange(hospital.data.for.leaflet, input$selected.drg)})
+  dollar.range <- reactive({getRange(hospital.data.for.leaflet, input$selected.drg.for.leaflet)})
   
   # This will render the slider bar on the ui
   output$numeric.range <- renderUI({ 
@@ -29,7 +29,7 @@ shinyServer(function(input, output) {
   
   # This is the leaflet map
   output$map <- renderLeaflet(
-    makeHospitalMap(hospital.data.for.leaflet, input$selected.drg, input$payment)
+    makeHospitalMap(hospital.data.for.leaflet, input$selected.drg.for.leaflet, input$payment)
   )
   
   # This is the choropleth map

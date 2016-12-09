@@ -16,7 +16,7 @@ shinyUI(fluidPage(
     sidebarPanel(
       
       # Select input for the DRGs
-      selectInput("selected.drg",
+      selectInput("selected.drg.for.leaflet",
                   "Select DRG",
                   hospital.data.drg$DRG.Definition,
                   selected = "039 - EXTRACRANIAL PROCEDURES W/O CC/MCC"),
