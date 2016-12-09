@@ -1,7 +1,17 @@
 # Hospital Information
-A link to the shiny app can be found [here](https://scbish.shinyapps.io/Project_Hospital_Information/).
 
-Since we used a large dataset, many features will take a few seconds to load.
+Since we used a large dataset, the shiny server would crash when we tried to combine all of the apps into one shiny app.
+
+A link to each of our shiny apps can be found below.  
+[Steven](https://scbish.shinyapps.io/Project_Hospital_Information/) 
+
+[Justin](https://jusintime.shinyapps.io/2011_us_inpatient_prospective_payment_comparative_bar_chart/) 
+
+[Muse](https://heymuse.shinyapps.io/Musetab7/)
+
+[Muse2](https://heymuse.shinyapps.io/Musetab3_backup/)
+
+[Zoshua](https://zcolah.shinyapps.io/Project_Hospital_Information/) 
 
 ## About Our Dataset
 Our project works with the “Inpatient Prospective Payment System (IPPS) Provider Summary for the Top 100 Diagnosis-Related Groups (DRG) - FY2011” data set of information created and maintained by the US Government. 

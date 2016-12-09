@@ -1,7 +1,7 @@
 # Library necessary packages
 library(plotly)
 library(dplyr)
-library(choroplethr)
+#library(choroplethr)
 
 # This script will make a choropleth map of the United States that displays the average covered charges divided by the average total payments
 MakeStateChoropleth <- function(data, type){
