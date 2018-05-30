@@ -1,5 +1,5 @@
 #Loading Libraries
-library (devtools)
+library(devtools)
 library(plotly)
 library(stringr)
 library(dplyr)
