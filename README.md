@@ -1,7 +1,7 @@
 # DRG Browser Shiny App
 A link to the shiny app can be found [zcolah.shinyapps.io/Project_Hospital_Information/](https://zcolah.shinyapps.io/Project_Hospital_Information/).
 
-Since we used a large dataset, many features will take a few seconds to load.
+Since we used a large dataset, many features will take a few seconds to load. To see a complete log of each contributor's commits please look at the finalComplete branch. 
 
 # Comparative Analysis of Two Hospitals 
 
